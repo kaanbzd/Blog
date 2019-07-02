@@ -23,22 +23,30 @@
         $kullaniciadi = $_POST["kullanici_adi"];
         $mail = $_POST["mail"];
         $sifre = $_POST["sifre"];
-        $sql= "INSERT INTO blog(name,surname,email,username,password) VALUES('$ad','$soyad','$kullaniciadi','$mail','$sifre')";
-        if ($conn->query($sql)){
-            echo "kayıt başarılı";
+
+        $sql = "select * from users where username='" . $kullaniciadi . "' or email='" . $mail . "' ";
+        $sonuc = $conn->query($sql);
+        if ($sonuc->num_rows > 0) {
+            echo 'böyle bir kayıt var';
         } else {
-            echo "kayıt başarısız:". $conn->error;
+
+            $sql = "INSERT INTO users (name,surname,username,email,password) VALUES('$ad','$soyad','$kullaniciadi','$mail','$sifre')";
+            if ($conn->query($sql)) {
+                echo "kayıt başarılı";
+            } else {
+                echo "kayıt başarısız:" . $conn->error;
+            }
+        }
     }
-}
-    
+
     ?>
-    <form action=”” method=”POST”>
-        <input type=”text” name=”ad” />
-        <input type=”text” name=”soyad” />
-        <input type=”text” name=”kullanici_adi” />
-        <input type=”email” name=”mail” />
-        <input type=”password” name=”sifre” />
-        <input type=”button” value=”Kaydol” />
+    <form action="register.php" method="POST">
+        AD <input type="text" name="ad" /></br>
+        SOYAD <input type="text" name="soyad" /></br>
+        KULLANICI ADI <input type="text" name="kullanici_adi" /></br>
+        E POSTA <input type="email" name="mail" /></br>
+        ŞİFRE <input type="password" name="sifre" />
+        <input type="submit" value="Submit">
     </form>
 </body>
 
