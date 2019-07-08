@@ -9,14 +9,10 @@
 
 <body>
     <?php
-    $severname = "localhost";
-    $username = "root";
-    $password = "";
-    $dbname = "test";
-    $conn = new mysqli($severname, $username, $password, $dbname);
-    if ($conn->connect_error) {
-        die("connection failed: " . $conn->connect_error);
-    }
+    include 'database.php';
+    $database = new database();
+    $conn = $database->connect();
+
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $ad = $_POST["ad"];
         $soyad = $_POST["soyad"];

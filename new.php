@@ -6,35 +6,20 @@
 
     <title>Document</title>
 
-    <!-- En son derlenmiş ve minimize edilmiş CSS -->
     <link rel="stylesheet" href="css/bootstrap.min.css">
 </head>
 
 <body>
     <?php
-    $severname="localhost";
-    $username="root";
-    $password="";
-    $dbname="test";
-    $conn= new mysqli($severname,$username,$password,$dbname);
-    if ($conn->connect_error){
-        die("connection failed: ".$conn->connect_error);
-    }
 
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $title = $_POST['title'];
         $content = $_POST['content'];
-        $datetime=new DateTime();
-        $date = $datetime->format("Y-m-d");
-        
-        $sql= "INSERT INTO blog(title,content,date) VALUES ('$title','$content','$date')";
-        if ($conn->query($sql)===TRUE){
-            echo "bağlantı başarılı";
-        } else {
-            echo "bağlantı başarısız:". $conn->error;
-        }
-        //echo $title;
-        //echo $content;
+
+        include 'article.php';
+        $article = new article();
+        $article->createArticle($title, $content);
+        header("Location:blog.php");
     }
 
     ?>
@@ -42,8 +27,6 @@
 
     <nav class="navbar navbar-default">
         <div class="container-fluid">
-
-            <!-- Aç/kapa için nav kısayollarını, formu ve diğer içeriği bir araya topla -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
                     <li class="active"><a href="new.php">Ekle <span class="sr-only">(current)</span></a></li>
@@ -62,8 +45,8 @@
                         </a>
                     </li>
                 </ul>
-            </div><!-- /.navbar-aç/kapa -->
-        </div><!-- /.container-fluid -->
+            </div>
+        </div>
     </nav>
 
     <div class="container">
@@ -92,7 +75,7 @@
 
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-    <!-- En son derlenmiş ve minimize edilmiş JavaScript -->
+
     <script src="js/bootstrap.min.js"></script>
 </body>
 

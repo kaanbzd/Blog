@@ -9,14 +9,10 @@
 
 <body>
     <?php
-    $severname = "localhost";
-    $username = "root";
-    $password = "";
-    $dbname = "test";
-    $conn = new mysqli($severname, $username, $password, $dbname);
-    if ($conn->connect_error) {
-        die("connection failed: " . $conn->connect_error);
-    }
+    include 'database.php';
+    $database = new database();
+    $conn = $database->connect();
+
 
     ?>
     <form action="login.php" method="POST">
@@ -48,10 +44,10 @@
         if ($sonuc->num_rows > 0) {
             while ($user = $sonuc->fetch_assoc()) {
                 $_SESSION["id"] = $user["id"];
-                header ("location:blog.php");
+                header("location:blog.php");
             }
             //Eğer var ise BAŞARILI komutunu veriyoruz.
-            
+
         } else {
             //Eğer yok ise BAŞARISIZ komutunu veriyoruz.
             $_SESSION["giris"] = "BAŞARISIZ";
@@ -75,4 +71,5 @@
         }*/
     ?>
 </body>
+
 </html>
