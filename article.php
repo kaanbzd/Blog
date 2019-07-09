@@ -26,7 +26,6 @@ class article
         return $article;
     }
 
-
     function getArticles()
     {
         $articles = array();
@@ -40,7 +39,6 @@ class article
                     "content" => $row["content"],
                     "date" => $row["date"]
                 )
-
             );
         }
 
@@ -52,14 +50,30 @@ class article
         $this->conn->query("DELETE FROM comment WHERE article_id =$articleid");
         $this->conn->query("DELETE FROM blog WHERE id=$articleid");
     }
-
-    function createArticle($title, $content)
+    function createArticle($title, $content, $userid)
     {
-        $this->conn->query("INSERT INTO blog(title,content) VALUES ('$title','$content')");
+        $this->conn->query("INSERT INTO blog(title,content,user_id) VALUES ('$title','$content','$userid')");
     }
-    function updateArticle($title,$content,$articleid)
+    function updateArticle($title, $content, $articleid)
     {
-        
-       $this->conn->query("UPDATE blog SET title='$title', content='$content' Where id=$articleid");
+
+        $this->conn->query("UPDATE blog SET title='$title', content='$content' Where id=$articleid");
+    }
+    function getArticlesByUserId($userid)
+    {
+        $articles = array();
+        $sorgu = $this->conn->query("SELECT * FROM blog WHERE user_id = $userid");
+        while ($row = $sorgu->fetch_array()) {
+            array_push(
+                $articles,
+                array(
+                    "id" => $row["id"],
+                    "title" => $row["title"],
+                    "content" => $row["content"],
+                    "date" => $row["date"]
+                )
+            );
+            return $articles;
+        }
     }
 }

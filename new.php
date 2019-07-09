@@ -11,19 +11,17 @@
 
 <body>
     <?php
-
+    session_start();
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $title = $_POST['title'];
         $content = $_POST['content'];
-
+        $userid = $_SESSION['id'];
         include 'article.php';
         $article = new article();
-        $article->createArticle($title, $content);
+        $article->createArticle($title, $content, $userid);
         header("Location:blog.php");
     }
-
     ?>
-
 
     <nav class="navbar navbar-default">
         <div class="container-fluid">
@@ -31,7 +29,6 @@
                 <ul class="nav navbar-nav">
                     <li class="active"><a href="new.php">Ekle <span class="sr-only">(current)</span></a></li>
                     <li><a href="blog.php">Listele</a></li>
-
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <li>
@@ -55,7 +52,6 @@
                 <div class="col-md-4">Başlık</div>
                 <div class="col-md-8">
                     <input type="text" class="form-control" placeholder="Text input" name="title">
-
                 </div>
             </div>
             <div class="row">
@@ -73,9 +69,7 @@
         </form>
     </div>
 
-
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-
     <script src="js/bootstrap.min.js"></script>
 </body>
 

@@ -13,7 +13,6 @@
     $database = new database();
     $conn = $database->connect();
 
-
     ?>
     <form action="login.php" method="POST">
         <table align="center">
@@ -46,29 +45,11 @@
                 $_SESSION["id"] = $user["id"];
                 header("location:blog.php");
             }
-            //Eğer var ise BAŞARILI komutunu veriyoruz.
-
         } else {
-            //Eğer yok ise BAŞARISIZ komutunu veriyoruz.
             $_SESSION["giris"] = "BAŞARISIZ";
         }
-        //Son olarak ekrana giriş durumunu yazdırıyoruz.
         echo '<br> GİRİŞ ' . $_SESSION["giris"];
     }
-
-
-
-    /*if (mysql_num_rows($sql_check)) {
-        $_SESSION["login"] = "true";
-        $_SESSION["user"] = $kadi;
-        header("Location:blog.php");
-        } else {
-        if ($kadi == "" or $sifre == "") {
-        echo "<center>Lutfen kullanici adi ya da sifreyi bos birakmayiniz..! <a href=javascript:history.back(-1)>Geri Don</a></center>";
-        } else {
-        echo "<center>Kullanici Adi/Sifre Yanlis.<br><a href=javascript:history.back(-1)>Geri Don</a></center>";
-        }
-        }*/
     ?>
 </body>
 

@@ -19,7 +19,6 @@
         $kullaniciadi = $_POST["kullanici_adi"];
         $mail = $_POST["mail"];
         $sifre = $_POST["sifre"];
-
         $sql = "select * from users where username='" . $kullaniciadi . "' or email='" . $mail . "' ";
         $sonuc = $conn->query($sql);
         if ($sonuc->num_rows > 0) {
