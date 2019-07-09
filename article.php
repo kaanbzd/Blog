@@ -29,7 +29,7 @@ class article
     function getArticles()
     {
         $articles = array();
-        $sorgu = $this->conn->query("SELECT * FROM blog");
+        $sorgu = $this->conn->query("SELECT * FROM blog ORDER BY date DESC");
         while ($row = $sorgu->fetch_array()) {
             array_push(
                 $articles,
@@ -62,7 +62,7 @@ class article
     function getArticlesByUserId($userid)
     {
         $articles = array();
-        $sorgu = $this->conn->query("SELECT * FROM blog WHERE user_id = $userid");
+        $sorgu = $this->conn->query("SELECT * FROM blog WHERE user_id = $userid ORDER BY date DESC");
         while ($row = $sorgu->fetch_array()) {
             array_push(
                 $articles,
@@ -73,7 +73,8 @@ class article
                     "date" => $row["date"]
                 )
             );
-            return $articles;
         }
+
+        return $articles;
     }
 }
