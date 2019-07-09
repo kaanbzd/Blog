@@ -27,19 +27,18 @@
         <div class="container-fluid">
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
-                    <li class="active"><a href="new.php">Ekle <span class="sr-only">(current)</span></a></li>
                     <li><a href="blog.php">Listele</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <li>
-                        <a href="#">
-                            <form class="navbar-form navbar-left" role="search">
-                                <div class="form-group">
-                                    <input type="text" class="form-control" placeholder="Ara">
-                                </div>
-                                <button type="submit" class="btn btn-default">Gönder</button>
-                            </form>
-                        </a>
+                        <?php
+                        if (isset($_SESSION["id"])) {
+                            echo '<li><a href="admin.php">Admin</a></li>';
+                            echo '<li><a href="logout.php">Çıkış</a></li>';
+                        } else {
+                            header("Location:blog.php");
+                        }
+                        ?>
                     </li>
                 </ul>
             </div>

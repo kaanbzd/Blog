@@ -18,7 +18,7 @@
 					<?php
 					session_start();
 					if (isset($_SESSION["id"])) {
-						echo '<li><a href="table.php">Admin</a></li>';
+						echo '<li><a href="admin.php">Admin</a></li>';
 						echo '<li><a href="logout.php">Çıkış</a></li>';
 					} else {
 						echo '<li><a href="login.php">Giriş</a></li>';

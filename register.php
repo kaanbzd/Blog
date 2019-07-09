@@ -21,15 +21,18 @@
         $sifre = $_POST["sifre"];
         $sql = "select * from users where username='" . $kullaniciadi . "' or email='" . $mail . "' ";
         $sonuc = $conn->query($sql);
-        if ($sonuc->num_rows > 0) {
-            echo 'böyle bir kayıt var';
+        if (empty($ad)|| empty($soyad)|| empty($kullaniciadi)|| empty($mail)|| empty($sifre)) {
+            echo "Boş alanları doldurunuz!";
         } else {
-
-            $sql = "INSERT INTO users (name,surname,username,email,password) VALUES('$ad','$soyad','$kullaniciadi','$mail','$sifre')";
-            if ($conn->query($sql)) {
-                echo "kayıt başarılı";
+            if ($sonuc->num_rows > 0) {
+                echo 'böyle bir kayıt var';
             } else {
-                echo "kayıt başarısız:" . $conn->error;
+                $sql = "INSERT INTO users (name,surname,username,email,password) VALUES('$ad','$soyad','$kullaniciadi','$mail','$sifre')";
+                if ($conn->query($sql)) {
+                    echo "kayıt başarılı";
+                } else {
+                    echo "kayıt başarısız:" . $conn->error;
+                }
             }
         }
     }
